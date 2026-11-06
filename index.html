@@ -3,184 +3,220 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CollectPay — Smart Payment Reminder</title>
+  <title>CollectPay Workspace</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
   <style>
-    body { font-family: 'Pretendard', sans-serif; }
-    .bg-space {
-      background: #0b0f19;
-      background-image: 
-        radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.08) 0%, transparent 40%);
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+    .notion-bg { background-color: #191919; }
+    .notion-sidebar { background-color: #202020; border-right: 1px solid rgba(255, 255, 255, 0.05); }
+    .notion-card { background-color: #252525; border: 1px solid rgba(255, 255, 255, 0.07); }
+    .notion-input {
+      background-color: #202020;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #fff;
     }
-    .glass-panel {
-      background: rgba(18, 24, 38, 0.65);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-    }
-    .glass-input {
-      background: rgba(11, 15, 25, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      transition: all 0.2s ease;
-    }
-    .glass-input:focus {
-      border-color: #6366f1;
-      box-shadow: 0 0 15px rgba(99, 102, 241, 0.25);
+    .notion-input:focus {
+      border-color: #5294e2;
       outline: none;
     }
   </style>
 </head>
-<body class="bg-space text-slate-100 min-h-screen flex flex-col justify-between antialiased selection:bg-indigo-500 selection:text-white">
+<body class="notion-bg text-slate-200 min-h-screen flex antialiased selection:bg-blue-600 selection:text-white">
 
-  <!-- Header -->
-  <header class="border-b border-slate-800/40 bg-[#0b0f19]/70 backdrop-blur-xl sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/30 text-sm">
-          CP
-        </div>
-        <span class="font-semibold tracking-tight text-white text-base">CollectPay</span>
+  <!-- Notion Sidebar -->
+  <aside class="w-64 notion-sidebar flex-shrink-0 min-h-screen hidden md:flex flex-col justify-between p-3">
+    <div class="space-y-4">
+      <!-- Workspace Header -->
+      <div class="flex items-center gap-2 px-2 py-1.5 hover:bg-white/5 rounded-lg cursor-pointer transition">
+        <div class="w-5 h-5 rounded bg-blue-600 flex items-center justify-center text-xs font-bold text-white">C</div>
+        <span class="text-sm font-semibold text-slate-200 tracking-tight">CollectPay 계정</span>
       </div>
-      <div class="flex items-center gap-2">
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-          Shield Active
-        </span>
-      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="space-y-0.5 text-xs font-medium text-slate-400">
+        <button onclick="switchTab('register')" id="nav-register" class="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md bg-white/10 text-white font-medium">
+          <span>📝</span>
+          <span>새 알림 등록</span>
+        </button>
+        <button onclick="switchTab('history')" id="nav-history" class="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md hover:bg-white/5 hover:text-slate-200 transition">
+          <span>📊</span>
+          <span>수금 관리 대시보드</span>
+        </button>
+      </nav>
     </div>
-  </header>
 
-  <!-- Main Section -->
-  <main class="max-w-5xl mx-auto px-4 py-12 w-full flex-1 space-y-10">
+    <!-- Sidebar Footer -->
+    <div class="px-2 py-2 border-t border-white/5 text-[11px] text-slate-500 flex items-center justify-between">
+      <span>Shield Active</span>
+      <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 min-h-screen flex flex-col justify-between overflow-y-auto">
     
-    <!-- Hero Title -->
-    <div class="text-center space-y-3 max-w-2xl mx-auto">
-      <span class="text-xs font-semibold text-indigo-400 uppercase tracking-widest bg-indigo-500/10 px-3 py-1 rounded-full border border-indigo-500/20">
-        Professional Payment Automation
-      </span>
-      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white leading-tight">
-        얼굴 찌푸리지 않고 정중하게,<br class="hidden sm:inline"> 미수금을 챙기는 가장 스마트한 방법
-      </h1>
-      <p class="text-slate-400 text-sm md:text-base leading-relaxed">
-        불편한 입금 부탁 대신 정갈한 리마인더 카드를 전달하세요.<br class="hidden sm:inline">
-        입금일이 지나면 지정된 보이스로 자동 안내가 전달됩니다.
-      </p>
-    </div>
+    <!-- Mobile Top Navigation Bar -->
+    <header class="md:hidden border-b border-white/5 p-4 flex items-center justify-between notion-sidebar">
+      <span class="font-semibold text-sm text-slate-200">CollectPay</span>
+      <div class="flex gap-2 text-xs">
+        <button onclick="switchTab('register')" class="px-3 py-1 bg-white/10 rounded">등록</button>
+        <button onclick="switchTab('history')" class="px-3 py-1 bg-white/5 rounded">내역</button>
+      </div>
+    </header>
 
-    <!-- Main Container -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    <!-- Workspace View -->
+    <div class="max-w-3xl mx-auto px-6 py-12 w-full flex-1">
       
-      <!-- Input Form Card -->
-      <div class="lg:col-span-7 glass-panel rounded-2xl p-6 md:p-8 shadow-2xl space-y-6">
-        <div class="border-b border-slate-800/80 pb-4 flex items-center justify-between">
-          <div>
-            <h2 class="text-base font-bold text-white tracking-tight">정산 리마인더 세팅</h2>
-            <p class="text-xs text-slate-400 mt-0.5">클라이언트 정보와 정산 건을 입력하세요.</p>
-          </div>
-          <span class="text-xs text-indigo-400 font-mono">STEP 01</span>
+      <!-- TAB 1: REGISTER FORM -->
+      <div id="tab-register" class="space-y-8">
+        
+        <!-- Notion Header Title Section -->
+        <div class="space-y-2 border-b border-white/5 pb-6">
+          <div class="text-3xl">🛡️</div>
+          <h1 class="text-3xl font-bold text-white tracking-tight">새 정산 알림 작성</h1>
+          <p class="text-xs text-slate-400">외주비 정산 알림을 세팅하고 자동 리마인더를 활성화합니다.</p>
         </div>
 
-        <form id="invoiceForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
-          <div>
-            <label class="block text-xs font-medium text-slate-300 mb-1.5">클라이언트 (업체명 또는 담당자)</label>
-            <input type="text" id="clientName" required placeholder="예: 디자인스튜디오 김팀장님" oninput="updatePreview()"
-              class="w-full glass-input rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600">
-          </div>
+        <form id="invoiceForm" onsubmit="handleFormSubmit(event)" class="space-y-6">
+          <div class="space-y-4">
+            
+            <div>
+              <label class="block text-xs text-slate-400 mb-1">수신인 (의뢰인 / 업체명)</label>
+              <input type="text" id="clientName" required placeholder="예: (주)디자인스튜디오 김팀장님" oninput="updatePreview()"
+                class="w-full notion-input rounded-md px-3 py-2 text-sm">
+            </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-xs font-medium text-slate-300 mb-1.5">클라이언트 이메일</label>
-              <input type="email" id="clientEmail" required placeholder="client@company.com"
-                class="w-full glass-input rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs text-slate-400 mb-1">의뢰인 이메일</label>
+                <input type="email" id="clientEmail" required placeholder="client@company.com"
+                  class="w-full notion-input rounded-md px-3 py-2 text-sm">
+              </div>
+              <div>
+                <label class="block text-xs text-slate-400 mb-1">입금 예정일</label>
+                <input type="date" id="dueDate" required onchange="updatePreview()"
+                  class="w-full notion-input rounded-md px-3 py-2 text-sm">
+              </div>
             </div>
-            <div>
-              <label class="block text-xs font-medium text-slate-300 mb-1.5">약정 입금일</label>
-              <input type="date" id="dueDate" required onchange="updatePreview()"
-                class="w-full glass-input rounded-xl px-4 py-3 text-sm text-white">
-            </div>
-          </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-xs font-medium text-slate-300 mb-1.5">정산 요청 금액 (원)</label>
-              <input type="number" id="amount" required placeholder="1500000" oninput="updatePreview()"
-                class="w-full glass-input rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs text-slate-400 mb-1">미수금 금액 (원)</label>
+                <input type="number" id="amount" required placeholder="1500000" oninput="updatePreview()"
+                  class="w-full notion-input rounded-md px-3 py-2 text-sm">
+              </div>
+              <div>
+                <label class="block text-xs text-slate-400 mb-1">내 토스 아이디 (선택)</label>
+                <input type="text" id="tossId" placeholder="예: user123" oninput="updatePreview()"
+                  class="w-full notion-input rounded-md px-3 py-2 text-sm">
+              </div>
             </div>
-            <div>
-              <label class="block text-xs font-medium text-slate-300 mb-1.5">토스 아이디 (선택)</label>
-              <input type="text" id="tossId" placeholder="예: user123" oninput="updatePreview()"
-                class="w-full glass-input rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600">
-            </div>
-          </div>
 
-          <div>
-            <label class="block text-xs font-medium text-slate-300 mb-1.5">내 이메일 (완료 알림 수신)</label>
-            <input type="email" id="freelancerEmail" required placeholder="my@email.com"
-              class="w-full glass-input rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600">
+            <div>
+              <label class="block text-xs text-slate-400 mb-1">내 이메일 (결과 수신용)</label>
+              <input type="email" id="freelancerEmail" required placeholder="my@email.com"
+                class="w-full notion-input rounded-md px-3 py-2 text-sm">
+            </div>
           </div>
 
           <button type="submit" id="submitBtn"
-            class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-3.5 px-6 rounded-xl transition duration-200 shadow-lg shadow-indigo-600/25 active:scale-[0.99] flex items-center justify-center gap-2 text-sm mt-2">
-            <span>자동 리마인드 등록하기</span>
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            class="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-2.5 px-4 rounded-md transition text-xs flex items-center justify-center gap-2">
+            <span>🚀 미수금 자동 알림 등록</span>
           </button>
         </form>
-      </div>
 
-      <!-- Preview Section -->
-      <div class="lg:col-span-5 space-y-4">
-        <div class="flex items-center justify-between px-1">
-          <span class="text-xs font-medium text-slate-400">실시간 카드 미리보기</span>
-          <span class="text-xs text-indigo-400 font-mono">LIVE PREVIEW</span>
-        </div>
-        
-        <!-- Kakao Preview Card -->
-        <div class="bg-[#FEE500] text-slate-900 rounded-2xl p-6 shadow-2xl space-y-5 relative overflow-hidden">
-          <div class="flex items-center justify-between border-b border-black/10 pb-3.5">
-            <div class="flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-slate-900"></span>
-              <span class="text-xs font-bold uppercase tracking-wider text-slate-900">정산 안내</span>
+        <!-- Preview Section Inside Page -->
+        <div class="pt-6 border-t border-white/5 space-y-3">
+          <div class="text-xs font-semibold text-slate-400 flex items-center gap-2">
+            <span>💬 카카오톡 알림 카드 미리보기</span>
+          </div>
+
+          <div class="bg-[#FEE500] text-slate-900 rounded-lg p-5 shadow-lg space-y-4">
+            <div class="flex justify-between items-center text-xs font-bold border-b border-black/10 pb-2">
+              <span>🧾 미수금 정산 안내</span>
+              <span class="text-[10px] text-slate-700">CollectPay</span>
             </div>
-            <span class="text-[11px] font-semibold text-slate-700">CollectPay</span>
-          </div>
-
-          <div class="space-y-2">
-            <p class="text-sm font-bold text-slate-900" id="prevClient">클라이언트님</p>
-            <p class="text-xs text-slate-800 leading-relaxed font-normal">
-              약정 입금일(<span id="prevDate" class="font-medium">YYYY-MM-DD</span>) 기준 정산건 안내해 드립니다.<br>
-              금액: <span class="font-extrabold text-base text-slate-950" id="prevAmount">0</span>원
-            </p>
-          </div>
-
-          <div class="pt-1">
+            <div class="space-y-1 text-xs">
+              <p class="font-bold text-sm" id="prevClient">의뢰인님</p>
+              <p class="text-slate-800">
+                입금예정일(<span id="prevDate">YYYY-MM-DD</span>)까지 
+                <span class="font-extrabold text-sm text-black" id="prevAmount">0</span>원 정산 안내해 드립니다.
+              </p>
+            </div>
             <a id="tossLinkBtn" href="#" target="_blank" 
-              class="block w-full bg-slate-900 hover:bg-slate-800 text-white text-center font-semibold text-xs py-3 rounded-xl transition shadow-md">
-              간편 송금 링크 바로가기
+              class="block w-full bg-slate-900 text-white text-center font-semibold text-xs py-2.5 rounded shadow">
+              🔗 간편 송금하기 (토스)
             </a>
           </div>
+
+          <button type="button" onclick="shareKakaoCard()"
+            class="w-full notion-card hover:bg-white/5 text-slate-300 font-medium py-2 px-3 rounded-md transition text-xs flex items-center justify-center gap-2">
+            <span>📋 정산 안내 문구 복사</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB 2: HISTORY / DASHBOARD -->
+      <div id="tab-history" class="space-y-6 hidden">
+        <div class="space-y-2 border-b border-white/5 pb-6">
+          <div class="text-3xl">📊</div>
+          <h1 class="text-3xl font-bold text-white tracking-tight">수금 현황 대시보드</h1>
+          <p class="text-xs text-slate-400">등록된 미수금 내역 및 입금 상태입니다.</p>
         </div>
 
-        <button type="button" onclick="shareKakaoCard()"
-          class="w-full glass-panel hover:bg-slate-800/50 text-slate-300 font-medium py-3 px-4 rounded-xl transition text-xs flex items-center justify-center gap-2">
-          <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-          <span>안내 문구 클립보드 복사</span>
-        </button>
+        <div class="grid grid-cols-3 gap-4">
+          <div class="notion-card p-4 rounded-md space-y-1">
+            <span class="text-[11px] text-slate-400">총 미수금</span>
+            <p class="text-xl font-bold text-white">₩ 0</p>
+          </div>
+          <div class="notion-card p-4 rounded-md space-y-1">
+            <span class="text-[11px] text-slate-400">수금 대기</span>
+            <p class="text-xl font-bold text-blue-400">0 건</p>
+          </div>
+          <div class="notion-card p-4 rounded-md space-y-1">
+            <span class="text-[11px] text-slate-400">수금 완료</span>
+            <p class="text-xl font-bold text-emerald-400">0 건</p>
+          </div>
+        </div>
+
+        <div class="notion-card rounded-md p-4 text-center text-xs text-slate-500 py-12">
+          등록된 미수금 내역이 여기에 표시됩니다.
+        </div>
       </div>
 
     </div>
-  </main>
 
-  <footer class="border-t border-slate-800/30 py-6 text-center text-xs text-slate-500">
-    © 2026 CollectPay. Designed for Freelancers.
-  </footer>
+    <!-- Workspace Footer -->
+    <footer class="border-t border-white/5 py-4 text-center text-[11px] text-slate-600">
+      Notion-style Workspace © CollectPay 2026
+    </footer>
+  </main>
 
   <script>
     const MAKE_WEBHOOK_URL = 'https://hook.eu1.make.com/6ign8o1lfy1fyi9ov1qtyshtjrm9d8fr4e';
 
+    function switchTab(tab) {
+      const regTab = document.getElementById('tab-register');
+      const histTab = document.getElementById('tab-history');
+      const navReg = document.getElementById('nav-register');
+      const navHist = document.getElementById('nav-history');
+
+      if (tab === 'register') {
+        regTab.classList.remove('hidden');
+        histTab.classList.add('hidden');
+        navReg.className = "w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md bg-white/10 text-white font-medium";
+        navHist.className = "w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md hover:bg-white/5 hover:text-slate-200 transition";
+      } else {
+        regTab.classList.add('hidden');
+        histTab.classList.remove('hidden');
+        navHist.className = "w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md bg-white/10 text-white font-medium";
+        navReg.className = "w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md hover:bg-white/5 hover:text-slate-200 transition";
+      }
+    }
+
     function updatePreview() {
-      const clientName = document.getElementById('clientName').value || '클라이언트';
+      const clientName = document.getElementById('clientName').value || '의뢰인';
       const amount = document.getElementById('amount').value;
       const dueDate = document.getElementById('dueDate').value || 'YYYY-MM-DD';
       const tossId = document.getElementById('tossId').value;
@@ -203,7 +239,7 @@
       event.preventDefault();
       const submitBtn = document.getElementById('submitBtn');
       submitBtn.disabled = true;
-      submitBtn.innerText = '등록 진행 중...';
+      submitBtn.innerText = '전송 중...';
 
       const payload = {
         clientName: document.getElementById('clientName').value,
@@ -223,7 +259,7 @@
         });
 
         if (response.ok) {
-          alert('정산 알림이 등록되었습니다. 약정일에 맞춰 알림이 전송됩니다.');
+          alert('정산 알림이 성공적으로 등록되었습니다.');
           document.getElementById('invoiceForm').reset();
           updatePreview();
         } else {
@@ -234,22 +270,22 @@
         alert('전송 중 오류가 발생했습니다.');
       } finally {
         submitBtn.disabled = false;
-        submitBtn.innerText = '자동 리마인드 등록하기';
+        submitBtn.innerText = '🚀 미수금 자동 알림 등록';
       }
     }
 
     function shareKakaoCard() {
-      const clientName = document.getElementById('clientName').value || '클라이언트';
+      const clientName = document.getElementById('clientName').value || '의뢰인';
       const amount = document.getElementById('amount').value ? Number(document.getElementById('amount').value).toLocaleString() : '0';
       const dueDate = document.getElementById('dueDate').value || '날짜미정';
       const tossId = document.getElementById('tossId').value;
       const tossUrl = tossId ? `https://toss.me/${tossId}` : '';
 
-      let shareText = `[CollectPay 정산 안내]\n\n${clientName}님, 약정 입금일(${dueDate}) 기준 정산 금액 ${amount}원 안내해 드립니다.`;
+      let shareText = `[CollectPay 정산 안내]\n\n${clientName}님, 입금예정일(${dueDate}) 기준 정산 금액 ${amount}원 안내해 드립니다.`;
       if (tossUrl) shareText += `\n\n간편 송금: ${tossUrl}`;
 
       navigator.clipboard.writeText(shareText).then(() => {
-        alert('안내 문구가 복사되었습니다. 채팅창에 붙여넣어 공유하세요.');
+        alert('안내 문구가 복사되었습니다.');
       }).catch(() => {
         alert('복사에 실패했습니다.');
       });
