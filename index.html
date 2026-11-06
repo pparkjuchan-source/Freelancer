@@ -171,9 +171,14 @@
 
       <!-- TAB 2: HISTORY / DASHBOARD -->
       <div id="tab-history" class="space-y-6 hidden">
-        <div class="space-y-1.5 border-b border-neutral-200 pb-6">
-          <h1 class="text-2xl font-bold tracking-tight text-neutral-900">수금 현황 대시보드</h1>
-          <p class="text-xs text-neutral-500">등록된 정산 리마인더 현황 및 입금 상태를 모니터링합니다.</p>
+        <div class="space-y-1.5 border-b border-neutral-200 pb-6 flex justify-between items-center">
+          <div>
+            <h1 class="text-2xl font-bold tracking-tight text-neutral-900">수금 현황 대시보드</h1>
+            <p class="text-xs text-neutral-500">등록된 정산 리마인더 현황 및 입금 상태를 모니터링합니다.</p>
+          </div>
+          <a href="https://airtable.com/appz7fHnZwwBRkpUo/shrSyHA9lElnTdzCN" target="_blank" class="text-xs font-medium text-neutral-600 hover:text-black border border-neutral-200 bg-white px-3 py-1.5 rounded-lg shadow-sm transition flex items-center gap-1">
+            Airtable 전체 화면 ↗
+          </a>
         </div>
 
         <div class="grid grid-cols-3 gap-4">
@@ -191,8 +196,17 @@
           </div>
         </div>
 
-        <div class="panel-card rounded-xl p-8 text-center text-xs text-neutral-400 py-16">
-          등록된 리마인더 내역이 존재하지 않습니다.
+        <!-- 에어테이블 실시간 내역 매립 영역 -->
+        <div class="panel-card rounded-xl overflow-hidden shadow-sm">
+          <div class="w-full h-[550px] bg-white">
+            <iframe 
+              src="https://airtable.com/embed/appz7fHnZwwBRkpUo/shrSyHA9lElnTdzCN?backgroundColor=green" 
+              frameborder="0" 
+              width="100%" 
+              height="100%" 
+              style="background: transparent; border: none;">
+            </iframe>
+          </div>
         </div>
       </div>
 
@@ -304,45 +318,3 @@
   </script>
 </body>
 </html>
-
-      <!-- TAB 2: HISTORY / DASHBOARD -->
-      <div id="tab-history" class="space-y-6 hidden">
-        <div class="space-y-1.5 border-b border-neutral-200 pb-6 flex justify-between items-center">
-          <div>
-            <h1 class="text-2xl font-bold tracking-tight text-neutral-900">수금 현황 대시보드</h1>
-            <p class="text-xs text-neutral-500">등록된 정산 리마인더 현황 및 입금 상태를 모니터링합니다.</p>
-          </div>
-          <a href="https://airtable.com/appz7fHnZwwBRkpUo/shrSyHA9lElnTdzCN" target="_blank" class="text-xs font-medium text-neutral-600 hover:text-black border border-neutral-200 bg-white px-3 py-1.5 rounded-lg shadow-sm transition flex items-center gap-1">
-            Airtable에서 크게 보기 ↗
-          </a>
-        </div>
-
-        <!-- 요약 카드 3종 -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="panel-card p-5 rounded-xl space-y-1">
-            <span class="text-[11px] text-neutral-400 font-medium">총 미수금 청구액</span>
-            <p class="text-xl font-bold text-neutral-900">₩ 0</p>
-          </div>
-          <div class="panel-card p-5 rounded-xl space-y-1">
-            <span class="text-[11px] text-neutral-400 font-medium">입금 대기 건</span>
-            <p class="text-xl font-bold text-blue-600">0 건</p>
-          </div>
-          <div class="panel-card p-5 rounded-xl space-y-1">
-            <span class="text-[11px] text-neutral-400 font-medium">정산 완료 건</span>
-            <p class="text-xl font-bold text-emerald-600">0 건</p>
-          </div>
-        </div>
-
-        <!-- 실시간 장부 대시보드 카드 영역 -->
-        <div class="panel-card rounded-xl overflow-hidden shadow-sm">
-          <div class="w-full h-[600px] bg-white">
-            <iframe 
-              src="https://airtable.com/embed/appz7fHnZwwBRkpUo/shrSyHA9lElnTdzCN?backgroundColor=green" 
-              frameborder="0" 
-              width="100%" 
-              height="100%" 
-              style="background: transparent; border: none;">
-            </iframe>
-          </div>
-        </div>
-      </div>
