@@ -305,48 +305,44 @@
 </body>
 </html>
 
-<div class="flex-1 p-8 bg-gray-50 min-h-screen">
-    <!-- 상단 헤더 -->
-    <div class="flex justify-between items-center mb-6">
-        <div>
-            <h1 class="text-2xl font-bold text-gray-900">수금 현황 대시보드</h1>
-            <p class="text-sm text-gray-500">등록된 정산 리마인더 현황 및 입금 상태를 모니터링합니다.</p>
+      <!-- TAB 2: HISTORY / DASHBOARD -->
+      <div id="tab-history" class="space-y-6 hidden">
+        <div class="space-y-1.5 border-b border-neutral-200 pb-6 flex justify-between items-center">
+          <div>
+            <h1 class="text-2xl font-bold tracking-tight text-neutral-900">수금 현황 대시보드</h1>
+            <p class="text-xs text-neutral-500">등록된 정산 리마인더 현황 및 입금 상태를 모니터링합니다.</p>
+          </div>
+          <a href="https://airtable.com/appz7fHnZwwBRkpUo/shrSyHA9lElnTdzCN" target="_blank" class="text-xs font-medium text-neutral-600 hover:text-black border border-neutral-200 bg-white px-3 py-1.5 rounded-lg shadow-sm transition flex items-center gap-1">
+            Airtable에서 크게 보기 ↗
+          </a>
         </div>
-    </div>
 
-    <!-- 요약 카드 3종 -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div class="p-5 bg-white rounded-xl shadow-sm border border-gray-100">
-            <p class="text-xs font-medium text-gray-400 mb-1">총 미수금 청구액</p>
-            <p class="text-2xl font-bold text-gray-900">₩ 0</p>
+        <!-- 요약 카드 3종 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="panel-card p-5 rounded-xl space-y-1">
+            <span class="text-[11px] text-neutral-400 font-medium">총 미수금 청구액</span>
+            <p class="text-xl font-bold text-neutral-900">₩ 0</p>
+          </div>
+          <div class="panel-card p-5 rounded-xl space-y-1">
+            <span class="text-[11px] text-neutral-400 font-medium">입금 대기 건</span>
+            <p class="text-xl font-bold text-blue-600">0 건</p>
+          </div>
+          <div class="panel-card p-5 rounded-xl space-y-1">
+            <span class="text-[11px] text-neutral-400 font-medium">정산 완료 건</span>
+            <p class="text-xl font-bold text-emerald-600">0 건</p>
+          </div>
         </div>
-        <div class="p-5 bg-white rounded-xl shadow-sm border border-gray-100">
-            <p class="text-xs font-medium text-gray-400 mb-1">입금 대기 건</p>
-            <p class="text-2xl font-bold text-blue-600">0 건</p>
-        </div>
-        <div class="p-5 bg-white rounded-xl shadow-sm border border-gray-100">
-            <p class="text-xs font-medium text-gray-400 mb-1">정산 완료 건</p>
-            <p class="text-2xl font-bold text-emerald-500">0 건</p>
-        </div>
-    </div>
 
-    <!-- 메인 수금 현황 리스트 (에어테이블 실시간 장부 영역) -->
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        <div class="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-            <h2 class="text-sm font-semibold text-gray-700">실시간 수금 내역 장부</h2>
-            <a href="https://airtable.com/appz7fHnZwwBRkpUo/shrSyHA9lElnTdzCN" target="_blank" class="text-xs font-medium text-gray-500 hover:text-black flex items-center gap-1">
-                Airtable에서 크게 보기 ↗
-            </a>
-        </div>
-        <!-- iframe으로 카드 내부에 깔끔하게 매립 -->
-        <div class="w-full h-[550px] bg-white">
+        <!-- 실시간 장부 대시보드 카드 영역 -->
+        <div class="panel-card rounded-xl overflow-hidden shadow-sm">
+          <div class="w-full h-[600px] bg-white">
             <iframe 
-                src="https://airtable.com/embed/appz7fHnZwwBRkpUo/shrSyHA9lElnTdzCN?backgroundColor=green" 
-                frameborder="0" 
-                width="100%" 
-                height="100%" 
-                style="background: transparent; border: none;">
+              src="https://airtable.com/embed/appz7fHnZwwBRkpUo/shrSyHA9lElnTdzCN?backgroundColor=green" 
+              frameborder="0" 
+              width="100%" 
+              height="100%" 
+              style="background: transparent; border: none;">
             </iframe>
+          </div>
         </div>
-    </div>
-</div>
+      </div>
