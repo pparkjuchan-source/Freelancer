@@ -8,46 +8,44 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
   <style>
     body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
-    .notion-bg { background-color: #191919; }
-    .notion-sidebar { background-color: #202020; border-right: 1px solid rgba(255, 255, 255, 0.05); }
-    .notion-card { background-color: #252525; border: 1px solid rgba(255, 255, 255, 0.07); }
+    .notion-bg { background-color: #FFFFFF; }
+    .notion-sidebar { background-color: #F7F7F6; border-right: 1px solid rgba(0, 0, 0, 0.06); }
+    .notion-card { background-color: #F9F9F8; border: 1px solid rgba(0, 0, 0, 0.06); }
     .notion-input {
-      background-color: #202020;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #fff;
+      background-color: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      color: #111;
     }
     .notion-input:focus {
-      border-color: #5294e2;
+      border-color: #2383E2;
       outline: none;
+      box-shadow: 0 0 0 2px rgba(35, 131, 226, 0.2);
     }
   </style>
 </head>
-<body class="notion-bg text-slate-200 min-h-screen flex antialiased selection:bg-blue-600 selection:text-white">
+<body class="notion-bg text-slate-800 min-h-screen flex antialiased selection:bg-blue-200">
 
-  <!-- Notion Sidebar -->
+  <!-- Notion Sidebar (Light) -->
   <aside class="w-64 notion-sidebar flex-shrink-0 min-h-screen hidden md:flex flex-col justify-between p-3">
     <div class="space-y-4">
-      <!-- Workspace Header -->
-      <div class="flex items-center gap-2 px-2 py-1.5 hover:bg-white/5 rounded-lg cursor-pointer transition">
+      <div class="flex items-center gap-2 px-2 py-1.5 hover:bg-black/5 rounded-lg cursor-pointer transition">
         <div class="w-5 h-5 rounded bg-blue-600 flex items-center justify-center text-xs font-bold text-white">C</div>
-        <span class="text-sm font-semibold text-slate-200 tracking-tight">CollectPay 계정</span>
+        <span class="text-sm font-semibold text-slate-800 tracking-tight">CollectPay 계정</span>
       </div>
 
-      <!-- Navigation Menu -->
-      <nav class="space-y-0.5 text-xs font-medium text-slate-400">
-        <button onclick="switchTab('register')" id="nav-register" class="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md bg-white/10 text-white font-medium">
+      <nav class="space-y-0.5 text-xs font-medium text-slate-600">
+        <button onclick="switchTab('register')" id="nav-register" class="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md bg-black/5 text-slate-900 font-semibold">
           <span>📝</span>
           <span>새 알림 등록</span>
         </button>
-        <button onclick="switchTab('history')" id="nav-history" class="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md hover:bg-white/5 hover:text-slate-200 transition">
+        <button onclick="switchTab('history')" id="nav-history" class="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md hover:bg-black/5 hover:text-slate-900 transition">
           <span>📊</span>
           <span>수금 관리 대시보드</span>
         </button>
       </nav>
     </div>
 
-    <!-- Sidebar Footer -->
-    <div class="px-2 py-2 border-t border-white/5 text-[11px] text-slate-500 flex items-center justify-between">
+    <div class="px-2 py-2 border-t border-black/5 text-[11px] text-slate-400 flex items-center justify-between">
       <span>Shield Active</span>
       <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
     </div>
@@ -56,45 +54,41 @@
   <!-- Main Content Area -->
   <main class="flex-1 min-h-screen flex flex-col justify-between overflow-y-auto">
     
-    <!-- Mobile Top Navigation Bar -->
-    <header class="md:hidden border-b border-white/5 p-4 flex items-center justify-between notion-sidebar">
-      <span class="font-semibold text-sm text-slate-200">CollectPay</span>
+    <header class="md:hidden border-b border-black/5 p-4 flex items-center justify-between notion-sidebar">
+      <span class="font-semibold text-sm text-slate-800">CollectPay</span>
       <div class="flex gap-2 text-xs">
-        <button onclick="switchTab('register')" class="px-3 py-1 bg-white/10 rounded">등록</button>
-        <button onclick="switchTab('history')" class="px-3 py-1 bg-white/5 rounded">내역</button>
+        <button onclick="switchTab('register')" class="px-3 py-1 bg-black/5 rounded font-medium">등록</button>
+        <button onclick="switchTab('history')" class="px-3 py-1 bg-black/5 rounded font-medium">내역</button>
       </div>
     </header>
 
-    <!-- Workspace View -->
     <div class="max-w-3xl mx-auto px-6 py-12 w-full flex-1">
       
       <!-- TAB 1: REGISTER FORM -->
       <div id="tab-register" class="space-y-8">
         
-        <!-- Notion Header Title Section -->
-        <div class="space-y-2 border-b border-white/5 pb-6">
+        <div class="space-y-2 border-b border-black/5 pb-6">
           <div class="text-3xl">🛡️</div>
-          <h1 class="text-3xl font-bold text-white tracking-tight">새 정산 알림 작성</h1>
-          <p class="text-xs text-slate-400">외주비 정산 알림을 세팅하고 자동 리마인더를 활성화합니다.</p>
+          <h1 class="text-3xl font-bold text-slate-900 tracking-tight">새 정산 알림 작성</h1>
+          <p class="text-xs text-slate-500">외주비 정산 알림을 세팅하고 자동 리마인더를 활성화합니다.</p>
         </div>
 
         <form id="invoiceForm" onsubmit="handleFormSubmit(event)" class="space-y-6">
           <div class="space-y-4">
-            
             <div>
-              <label class="block text-xs text-slate-400 mb-1">수신인 (의뢰인 / 업체명)</label>
+              <label class="block text-xs text-slate-600 mb-1">수신인 (의뢰인 / 업체명)</label>
               <input type="text" id="clientName" required placeholder="예: (주)디자인스튜디오 김팀장님" oninput="updatePreview()"
                 class="w-full notion-input rounded-md px-3 py-2 text-sm">
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label class="block text-xs text-slate-400 mb-1">의뢰인 이메일</label>
+                <label class="block text-xs text-slate-600 mb-1">의뢰인 이메일</label>
                 <input type="email" id="clientEmail" required placeholder="client@company.com"
                   class="w-full notion-input rounded-md px-3 py-2 text-sm">
               </div>
               <div>
-                <label class="block text-xs text-slate-400 mb-1">입금 예정일</label>
+                <label class="block text-xs text-slate-600 mb-1">입금 예정일</label>
                 <input type="date" id="dueDate" required onchange="updatePreview()"
                   class="w-full notion-input rounded-md px-3 py-2 text-sm">
               </div>
@@ -102,37 +96,36 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label class="block text-xs text-slate-400 mb-1">미수금 금액 (원)</label>
+                <label class="block text-xs text-slate-600 mb-1">미수금 금액 (원)</label>
                 <input type="number" id="amount" required placeholder="1500000" oninput="updatePreview()"
                   class="w-full notion-input rounded-md px-3 py-2 text-sm">
               </div>
               <div>
-                <label class="block text-xs text-slate-400 mb-1">내 토스 아이디 (선택)</label>
+                <label class="block text-xs text-slate-600 mb-1">내 토스 아이디 (선택)</label>
                 <input type="text" id="tossId" placeholder="예: user123" oninput="updatePreview()"
                   class="w-full notion-input rounded-md px-3 py-2 text-sm">
               </div>
             </div>
 
             <div>
-              <label class="block text-xs text-slate-400 mb-1">내 이메일 (결과 수신용)</label>
+              <label class="block text-xs text-slate-600 mb-1">내 이메일 (결과 수신용)</label>
               <input type="email" id="freelancerEmail" required placeholder="my@email.com"
                 class="w-full notion-input rounded-md px-3 py-2 text-sm">
             </div>
           </div>
 
           <button type="submit" id="submitBtn"
-            class="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-2.5 px-4 rounded-md transition text-xs flex items-center justify-center gap-2">
+            class="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-2.5 px-4 rounded-md transition text-xs flex items-center justify-center gap-2 shadow-sm">
             <span>🚀 미수금 자동 알림 등록</span>
           </button>
         </form>
 
-        <!-- Preview Section Inside Page -->
-        <div class="pt-6 border-t border-white/5 space-y-3">
-          <div class="text-xs font-semibold text-slate-400 flex items-center gap-2">
+        <div class="pt-6 border-t border-black/5 space-y-3">
+          <div class="text-xs font-semibold text-slate-600 flex items-center gap-2">
             <span>💬 카카오톡 알림 카드 미리보기</span>
           </div>
 
-          <div class="bg-[#FEE500] text-slate-900 rounded-lg p-5 shadow-lg space-y-4">
+          <div class="bg-[#FEE500] text-slate-900 rounded-lg p-5 shadow-sm space-y-4">
             <div class="flex justify-between items-center text-xs font-bold border-b border-black/10 pb-2">
               <span>🧾 미수금 정산 안내</span>
               <span class="text-[10px] text-slate-700">CollectPay</span>
@@ -145,13 +138,13 @@
               </p>
             </div>
             <a id="tossLinkBtn" href="#" target="_blank" 
-              class="block w-full bg-slate-900 text-white text-center font-semibold text-xs py-2.5 rounded shadow">
+              class="block w-full bg-slate-900 text-white text-center font-semibold text-xs py-2.5 rounded shadow-sm">
               🔗 간편 송금하기 (토스)
             </a>
           </div>
 
           <button type="button" onclick="shareKakaoCard()"
-            class="w-full notion-card hover:bg-white/5 text-slate-300 font-medium py-2 px-3 rounded-md transition text-xs flex items-center justify-center gap-2">
+            class="w-full notion-card hover:bg-black/5 text-slate-700 font-medium py-2 px-3 rounded-md transition text-xs flex items-center justify-center gap-2">
             <span>📋 정산 안내 문구 복사</span>
           </button>
         </div>
@@ -159,36 +152,35 @@
 
       <!-- TAB 2: HISTORY / DASHBOARD -->
       <div id="tab-history" class="space-y-6 hidden">
-        <div class="space-y-2 border-b border-white/5 pb-6">
+        <div class="space-y-2 border-b border-black/5 pb-6">
           <div class="text-3xl">📊</div>
-          <h1 class="text-3xl font-bold text-white tracking-tight">수금 현황 대시보드</h1>
-          <p class="text-xs text-slate-400">등록된 미수금 내역 및 입금 상태입니다.</p>
+          <h1 class="text-3xl font-bold text-slate-900 tracking-tight">수금 현황 대시보드</h1>
+          <p class="text-xs text-slate-500">등록된 미수금 내역 및 입금 상태입니다.</p>
         </div>
 
         <div class="grid grid-cols-3 gap-4">
           <div class="notion-card p-4 rounded-md space-y-1">
-            <span class="text-[11px] text-slate-400">총 미수금</span>
-            <p class="text-xl font-bold text-white">₩ 0</p>
+            <span class="text-[11px] text-slate-500">총 미수금</span>
+            <p class="text-xl font-bold text-slate-900">₩ 0</p>
           </div>
           <div class="notion-card p-4 rounded-md space-y-1">
-            <span class="text-[11px] text-slate-400">수금 대기</span>
-            <p class="text-xl font-bold text-blue-400">0 건</p>
+            <span class="text-[11px] text-slate-500">수금 대기</span>
+            <p class="text-xl font-bold text-blue-600">0 건</p>
           </div>
           <div class="notion-card p-4 rounded-md space-y-1">
-            <span class="text-[11px] text-slate-400">수금 완료</span>
-            <p class="text-xl font-bold text-emerald-400">0 건</p>
+            <span class="text-[11px] text-slate-500">수금 완료</span>
+            <p class="text-xl font-bold text-emerald-600">0 건</p>
           </div>
         </div>
 
-        <div class="notion-card rounded-md p-4 text-center text-xs text-slate-500 py-12">
+        <div class="notion-card rounded-md p-4 text-center text-xs text-slate-400 py-12">
           등록된 미수금 내역이 여기에 표시됩니다.
         </div>
       </div>
 
     </div>
 
-    <!-- Workspace Footer -->
-    <footer class="border-t border-white/5 py-4 text-center text-[11px] text-slate-600">
+    <footer class="border-t border-black/5 py-4 text-center text-[11px] text-slate-400">
       Notion-style Workspace © CollectPay 2026
     </footer>
   </main>
@@ -205,13 +197,13 @@
       if (tab === 'register') {
         regTab.classList.remove('hidden');
         histTab.classList.add('hidden');
-        navReg.className = "w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md bg-white/10 text-white font-medium";
-        navHist.className = "w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md hover:bg-white/5 hover:text-slate-200 transition";
+        navReg.className = "w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md bg-black/5 text-slate-900 font-semibold";
+        navHist.className = "w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md hover:bg-black/5 hover:text-slate-900 transition";
       } else {
         regTab.classList.add('hidden');
         histTab.classList.remove('hidden');
-        navHist.className = "w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md bg-white/10 text-white font-medium";
-        navReg.className = "w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md hover:bg-white/5 hover:text-slate-200 transition";
+        navHist.className = "w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md bg-black/5 text-slate-900 font-semibold";
+        navReg.className = "w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md hover:bg-black/5 hover:text-slate-900 transition";
       }
     }
 
