@@ -305,12 +305,48 @@
 </body>
 </html>
 
-<!-- 실시간 수금 현황 대시보드 바로가기 -->
-<div class="p-6 bg-white rounded-xl shadow-md border border-gray-100 text-center my-6">
-    <h3 class="text-lg font-bold text-gray-800 mb-2">실시간 수금 현황 대시보드</h3>
-    <p class="text-sm text-gray-500 mb-4">버튼을 누르면 에어테이블에 실시간으로 쌓인 정산 내역 장부가 새 창으로 열립니다.</p>
-    <a href="https://airtable.com/appz7fHnZwwBRkpUo/shrSyHA9lElnTdzCN" target="_blank" class="inline-block bg-black text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 transition">
-        에어테이블 장부 열기
-    </a>
-</div>
+<div class="flex-1 p-8 bg-gray-50 min-h-screen">
+    <!-- 상단 헤더 -->
+    <div class="flex justify-between items-center mb-6">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-900">수금 현황 대시보드</h1>
+            <p class="text-sm text-gray-500">등록된 정산 리마인더 현황 및 입금 상태를 모니터링합니다.</p>
+        </div>
+    </div>
 
+    <!-- 요약 카드 3종 -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="p-5 bg-white rounded-xl shadow-sm border border-gray-100">
+            <p class="text-xs font-medium text-gray-400 mb-1">총 미수금 청구액</p>
+            <p class="text-2xl font-bold text-gray-900">₩ 0</p>
+        </div>
+        <div class="p-5 bg-white rounded-xl shadow-sm border border-gray-100">
+            <p class="text-xs font-medium text-gray-400 mb-1">입금 대기 건</p>
+            <p class="text-2xl font-bold text-blue-600">0 건</p>
+        </div>
+        <div class="p-5 bg-white rounded-xl shadow-sm border border-gray-100">
+            <p class="text-xs font-medium text-gray-400 mb-1">정산 완료 건</p>
+            <p class="text-2xl font-bold text-emerald-500">0 건</p>
+        </div>
+    </div>
+
+    <!-- 메인 수금 현황 리스트 (에어테이블 실시간 장부 영역) -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+        <div class="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+            <h2 class="text-sm font-semibold text-gray-700">실시간 수금 내역 장부</h2>
+            <a href="https://airtable.com/appz7fHnZwwBRkpUo/shrSyHA9lElnTdzCN" target="_blank" class="text-xs font-medium text-gray-500 hover:text-black flex items-center gap-1">
+                Airtable에서 크게 보기 ↗
+            </a>
+        </div>
+        <!-- iframe으로 카드 내부에 깔끔하게 매립 -->
+        <div class="w-full h-[550px] bg-white">
+            <iframe 
+                src="https://airtable.com/embed/appz7fHnZwwBRkpUo/shrSyHA9lElnTdzCN?backgroundColor=green" 
+                frameborder="0" 
+                width="100%" 
+                height="100%" 
+                style="background: transparent; border: none;">
+            </iframe>
+        </div>
+    </div>
+</div>
