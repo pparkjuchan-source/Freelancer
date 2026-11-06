@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>프리랜서 미수금 자동 독촉 비서</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <style>
+    body { font-family: 'Pretendard', sans-serif; }
+    .glow-bg {
+      background: radial-gradient(circle at 50% -20%, rgba(59, 130, 246, 0.15), rgba(0, 0, 0, 0));
+    }
+  </style>
+</head>
+<body class="bg-[#090d16] text-slate-100 min-h-screen glow-bg flex flex-col justify-between antialiased selection:bg-blue-500 selection:text-white">
+
+  <!-- Header -->
+  <header class="border-b border-slate-800/60 bg-[#090d16]/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-500/20">
+          🧾
+        </div>
+        <span class="font-bold text-lg tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">CollectPay</span>
+      </div>
+      <span class="text-xs px-2.5 py-1 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 font-medium">BETA</span>
+    </div>
+  </header>
+
+  <!-- Main Section -->
+  <main class="max-w-4xl mx-auto px-4 py-12 w-full flex-1">
+    <!-- Hero Title -->
+    <div class="text-center mb-10 space-y-3">
+      <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">
+        프리랜서 미수금 자동 독촉 비서
+      </h1>
+      <p class="text-slate-400 text-sm md:text-base max-w-lg mx-auto">
+        외주비 재촉, 직접 말하지 마세요. 정중하고 확실하게 대신 알림을 보내드립니다.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <!-- Input Form Card -->
+      <div class="lg:col-span-7 bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 md:p-8 backdrop-blur-xl shadow-2xl shadow-black/50">
+        <form id="invoiceForm" onsubmit="handleFormSubmit(event)" class="space-y-5">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">의뢰인 / 업체명</label>
+            <input type="text" id="clientName" required placeholder="예: (주)디자인스튜디오" oninput="updatePreview()"
+              class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">의뢰인 이메일</label>
+              <input type="email" id="clientEmail" required placeholder="client@company.com"
+                class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">입금 예정일</label>
+              <input type="date" id="dueDate" required onchange="updatePreview()"
+                class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">미수금 금액 (원)</label>
+              <input type="number" id="amount" required placeholder="1500000" oninput="updatePreview()"
+                class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">내 토스 아이디 (선택)</label>
+              <input type="text" id="tossId" placeholder="예: user123" oninput="updatePreview()"
+                class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">내 이메일 (수신 확인용)</label>
+            <input type="email" id="freelancerEmail" required placeholder="my@email.com"
+              class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+          </div>
+
+          <button type="submit" id="submitBtn"
+            class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold py-3.5 px-6 rounded-xl transition duration-200 shadow-lg shadow-blue-600/30 active:scale-[0.99] flex items-center justify-center gap-2">
+            <span>무료로 미수금 알림 등록하기</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Preview Section -->
+      <div class="lg:col-span-5 space-y-4">
+        <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider px-1">실시간 카카오톡 공유 미리보기</div>
+        
+        <!-- Kakao Preview Card -->
+        <div class="bg-[#fee500] text-slate-900 rounded-2xl p-5 shadow-2xl relative overflow-hidden space-y-4">
+          <div class="flex items-center justify-between border-b border-black/10 pb-3">
+            <span class="bg-slate-900 text-white text-[11px] font-bold px-2.5 py-1 rounded-full">🧾 미수금 정산 요청서</span>
+            <span class="text-xs text-slate-700 font-medium">CollectPay</span>
+          </div>
+
+          <div class="space-y-1.5 py-1">
+            <p class="text-sm font-semibold" id="prevClient">[의뢰인명]님</p>
+            <p class="text-xs text-slate-800 leading-relaxed">
+              입금예정일(<span id="prevDate">YYYY-MM-DD</span>)까지 
+              <span class="font-bold text-base text-slate-950" id="prevAmount">0</span>원 정산건 안내해 드립니다.
+            </p>
+          </div>
+
+          <div class="pt-2">
+            <a id="tossLinkBtn" href="#" target="_blank" 
+              class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center font-bold text-xs py-3 rounded-xl shadow-md transition">
+              🔗 1초 만에 간편 송금하기 (토스/계좌)
+            </a>
+          </div>
+        </div>
+
+        <button type="button" onclick="shareKakaoCard()"
+          class="w-full bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 border border-blue-500/30 font-semibold py-3 px-4 rounded-xl transition text-sm flex items-center justify-center gap-2">
+          <span>💬 카카오톡으로 정산 카드 보내기</span>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t border-slate-800/40 py-6 text-center text-xs text-slate-600">
+    © 2026 CollectPay. All rights reserved.
+  </footer>
+
+  <script>
+    const MAKE_WEBHOOK_URL = 'https://hook.us1.make.com/YOUR_WEBHOOK_ID';
+
+    function updatePreview() {
+      const clientName = document.getElementById('clientName').value || '[의뢰인명]';
+      const amount = document.getElementById('amount').value;
+      const dueDate = document.getElementById('dueDate').value || 'YYYY-MM-DD';
+      const tossId = document.getElementById('tossId').value;
+
+      document.getElementById('prevClient').innerText = `${clientName}님`;
+      document.getElementById('prevDate').innerText = dueDate;
+      document.getElementById('prevAmount').innerText = amount ? Number(amount).toLocaleString() : '0';
+
+      const tossBtn = document.getElementById('tossLinkBtn');
+      if (tossId && amount) {
+        tossBtn.href = `https://toss.me/${tossId}/${amount}`;
+      } else if (tossId) {
+        tossBtn.href = `https://toss.me/${tossId}`;
+      } else {
+        tossBtn.href = '#';
+      }
+    }
+
+    async function handleFormSubmit(event) {
+      event.preventDefault();
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = true;
+      submitBtn.innerText = '전송 중...';
+
+      const payload = {
+        clientName: document.getElementById('clientName').value,
+        clientEmail: document.getElementById('clientEmail').value,
+        amount: Number(document.getElementById('amount').value),
+        dueDate: document.getElementById('dueDate').value,
+        tossId: document.getElementById('tossId').value,
+        freelancerEmail: document.getElementById('freelancerEmail').value,
+        createdAt: new Date().toISOString()
+      };
+
+      try {
+        const response = await fetch(MAKE_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (response.ok) {
+          alert('정산 요청 정보가 Make.com 및 Airtable로 정상 등록되었습니다!');
+          document.getElementById('invoiceForm').reset();
+          updatePreview();
+        } else {
+          alert('서버 전송 실패. Make.com Webhook URL을 확인해주세요.');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('전송 중 오류가 발생했습니다.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = '무료로 미수금 알림 등록하기';
+      }
+    }
+
+    function shareKakaoCard() {
+      alert('카카오톡으로 정산 카드가 공유됩니다!');
+    }
+  </script>
+</body>
+</html>
